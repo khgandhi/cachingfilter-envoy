@@ -20,8 +20,36 @@ $ docker run -it --name envoy-build lyft/envoy-build:b3542cdfe76e7e46c276c781935
 Once the container is up and running, we can clone this repo inside the container:
 
 ```shell
-
+   git clone https://github.corp.ebay.com/kugandhi/ebay-envoy.git
 ```
 
+To update the submodule in the repo, run the following command inside the container:
+
+```shell
+git submodule update --init
+```
+
+To build the envoy proxy with the caching filter:
+
+```shell
+bazel build -c dbg //:envoy
+```
+
+# Config
+To enable the caching filter, we add it the envoy config file as follows:
+
+``` javascript
+"filters": [
+              {
+                "type": "decoder",
+                "name": "ufesorch",
+                "config": {
+                  "orchestrator_cluster": "local-orch",
+                  "timeout": 10000
+                }
+              }
+     ]
+```
+              
 
 
