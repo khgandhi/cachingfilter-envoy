@@ -13,26 +13,29 @@ This repo is configured to use the master envoy proxy code as a submodule to the
 # Build
 The caching filter will be statically compiled with the envoy proxy code. To build envoy, we can use the envoy-build docker image:
 
-``` shell
-$ docker run -it --name envoy-build lyft/envoy-build:b3542cdfe76e7e46c276c781935d339d4ecd0502 /bin/bash
-```
-
-Once the container is up and running, we can clone this repo inside the container:
+First we clone this repo:
 
 ```shell
    git clone https://github.corp.ebay.com/kugandhi/ebay-envoy.git
 ```
 
-To update the submodule in the repo, run the following command inside the container:
+To update the submodule in the repo, run the following command under the source root directory:
 
 ```shell
+$ cd ebay-envoy
 git submodule update --init
+```
+To bring the container, we can do the following:
+
+``` shell
+$ cd ebay-envoy
+$ docker run -it --name envoy-build -v /home/kugandhi/Documents/ebay-envoy:/ebay-envoy lyft/envoy-build:b3542cdfe76e7e46c276c781935d339d4ecd0502 /bin/bash
 ```
 
 To build the envoy proxy with the caching filter:
 
 ```shell
-bazel build -c dbg //:envoy
+root@e2d5d9923b57:/ebay-envoy# bazel build -c dbg //:envoy
 ```
 
 # Config
