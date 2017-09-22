@@ -19,21 +19,21 @@ namespace Envoy {
 namespace Http {
 namespace Cache {
 
- void RestOrchClient::orchestrate(OrchRequestCallbacks& callbacks, const Http::HeaderMap& headers) {
+void RestOrchClient::orchestrate(OrchRequestCallbacks& callbacks, const Http::HeaderMap& headers) {
  	//setting the callback
  	ASSERT(!callbacks_);
   	callbacks_ = &callbacks;
 	 
-	 // create an http request for the external orchestrator layer
-	 Envoy::Http::MessagePtr request(new Envoy::Http::RequestMessageImpl());
-	 request->headers().insertMethod().value(Http::Headers::get().MethodValues.Post);
-	 request->headers().insertPath().value(std::string(CacheConstants::get().OrchestratorClientProperties.OrchestratorUri));
-	 request->headers().insertHost().value(orch_cluster_name_);
-	 request->headers().insertContentType().value(std::string("application/json"));
-	 request->body() = Buffer::InstancePtr(new Buffer::OwnedImpl(createRequest(headers)));
+	// create an http request for the external orchestrator layer
+	Envoy::Http::MessagePtr request(new Envoy::Http::RequestMessageImpl());
+	request->headers().insertMethod().value(Http::Headers::get().MethodValues.Post);
+	request->headers().insertPath().value(std::string(CacheConstants::get().OrchestratorClientProperties.OrchestratorUri));
+	request->headers().insertHost().value(orch_cluster_name_);
+	request->headers().insertContentType().value(std::string("application/json"));
+	request->body() = Buffer::InstancePtr(new Buffer::OwnedImpl(createRequest(headers)));
 
 	 // make a call to the underlying orchestrator cluster.
-	 cm_.httpAsyncClientForCluster(orch_cluster_name_)
+	cm_.httpAsyncClientForCluster(orch_cluster_name_)
 	    .send(std::move(request), *this, std::chrono::milliseconds(2000));
   }
 

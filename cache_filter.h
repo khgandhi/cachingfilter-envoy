@@ -17,7 +17,8 @@ namespace Cache {
 
 class UfesOrchFilterConfig {
 public:
-	 UfesOrchFilterConfig(const std::string orchestrator_cluster_name, int64_t timeout, Upstream::ClusterManager& cm)
+	 UfesOrchFilterConfig(const std::string orchestrator_cluster_name, 
+	 					  int64_t timeout, Upstream::ClusterManager& cm)
 	      : orchestrator_cluster_(orchestrator_cluster_name),
 	        timeout_(std::chrono::milliseconds(timeout)),
 	        cm_(cm) {}
@@ -30,7 +31,8 @@ private:
 
 typedef std::shared_ptr<UfesOrchFilterConfig> UfesOrchFilterConfigSharedPtr;
 
-class UfesOrchFilter : public StreamDecoderFilter, public OrchRequestCallbacks, public Logger::Loggable<Logger::Id::filter>  {
+class UfesOrchFilter : public StreamDecoderFilter, public OrchRequestCallbacks, 
+												   public Logger::Loggable<Logger::Id::filter>  {
 
 public:
 	UfesOrchFilter(UfesOrchFilterConfigSharedPtr config, OrchClientPtr client);

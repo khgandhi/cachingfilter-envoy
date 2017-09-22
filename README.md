@@ -29,7 +29,7 @@ To bring the container, we can do the following:
 
 ``` shell
 $ cd ebay-envoy
-$ docker run -it --name envoy-build -v /home/kugandhi/Documents/ebay-envoy:/ebay-envoy lyft/envoy-build:b3542cdfe76e7e46c276c781935d339d4ecd0502 /bin/bash
+$ docker run -it --name envoy-build -v <full path to this repo>:/ebay-envoy lyft/envoy-build:b3542cdfe76e7e46c276c781935d339d4ecd0502 /bin/bash
 ```
 
 To build the envoy proxy with the caching filter:
@@ -43,15 +43,15 @@ To enable the caching filter, we add it the envoy config file as follows:
 
 ``` javascript
 "filters": [
-              {
-                "type": "decoder",
-                "name": "ufesorch",
-                "config": {
-                  "orchestrator_cluster": "local-orch",
-                  "timeout": 10000
-                }
+            {
+              "type": "decoder",
+              "name": "ufesorch",
+              "config": {
+                "orchestrator_cluster": "local-orch",
+                "timeout": 10000
               }
-     ]
+            }
+        ]
 ```
               
 

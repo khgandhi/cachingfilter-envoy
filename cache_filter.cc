@@ -14,7 +14,8 @@ namespace Envoy {
 namespace Http {
 namespace Cache {
 
-UfesOrchFilter::UfesOrchFilter(UfesOrchFilterConfigSharedPtr config, OrchClientPtr client):config_(config), client_(std::move(client)) {}
+UfesOrchFilter::UfesOrchFilter(UfesOrchFilterConfigSharedPtr config, 
+                               OrchClientPtr client):config_(config), client_(std::move(client)) {}
 
 FilterHeadersStatus UfesOrchFilter::decodeHeaders(Envoy::Http::HeaderMap& headers, bool) {
   downstream_headers_ = &headers;
@@ -51,6 +52,7 @@ void UfesOrchFilter::complete(OrchestratorResponse& response) {
 	// continue decoding.
    callbacks_->continueDecoding();
 }
+
 } //namespace envoy
 }// namespace http
 }// namespace cache

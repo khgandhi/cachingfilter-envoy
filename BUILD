@@ -4,6 +4,7 @@ load(
     "@envoy//bazel:envoy_build_system.bzl",
     "envoy_cc_library",
     "envoy_cc_binary",
+    "envoy_cc_test",
 )
 
 envoy_cc_binary(
@@ -55,7 +56,7 @@ envoy_cc_library(
     hdrs = ["cache_filter.h"],
     repository = "@envoy",
     deps = [
-	":cache_interface",
+	    ":cache_interface",
         ":cache_constants",
         "@envoy//include/envoy/http:filter_interface",
         "@envoy//include/envoy/upstream:cluster_manager_interface",
@@ -79,5 +80,22 @@ envoy_cc_library(
         "@envoy//include/envoy/server:filter_config_interface",
         ":cachefilter_lib",
         ":cache_lib",
+    ],
+)
+
+envoy_cc_test(
+    name = "cache_filter_test",
+    srcs = ["cache_filter_test.cc"],
+    repository = "@envoy",
+    deps = [
+        "@envoy//source/common/http:header_map_lib",
+        "@envoy//source/common/http:headers_lib",
+        ":cachefilter_lib",
+        ":cache_constants",
+        ":cache_interface",
+        "@envoy//test/mocks/http:http_mocks",
+        "@envoy//test/mocks/upstream:upstream_mocks",
+        "@envoy//test/test_common:utility_lib",
+        "@envoy//source/common/buffer:buffer_lib",
     ],
 )
