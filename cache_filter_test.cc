@@ -1,4 +1,4 @@
-÷÷÷÷åßu≥ç#include "cache_filter.h"
+#include "cache_filter.h"
 #include "common/http/header_map_impl.h"
 #include "common/http/headers.h"
 #include "cache.h"
