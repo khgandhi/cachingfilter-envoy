@@ -1,4 +1,4 @@
-#include "cache_filter.h"
+÷÷÷÷åßu≥ç#include "cache_filter.h"
 #include "common/http/header_map_impl.h"
 #include "common/http/headers.h"
 #include "cache.h"
@@ -60,12 +60,6 @@ public:
 
 TEST_F(UfesOrchFilterTest, UfesOrchBasicFilter) {
 	SetUpTest(ufes_orch_json);
-	EXPECT_CALL(filter_callbacks_, encodeHeaders_(_, _))
-		.WillOnce(
-				Invoke([&](HeaderMap& headers, bool)->void {
-					ASSERT_TRUE(headers.get(CacheConstants::get().CacheKeyHeader) != nullptr);
-	 })
-	);
 	EXPECT_CALL(*mock_client_, orchestrate(_, _))
 		.WillOnce(
 				Invoke ([&](OrchRequestCallbacks& callbacks, const Http::HeaderMap&)-> void {
