@@ -42,7 +42,13 @@ TEST(CacheImplTest, UfesClientBasic) {
 		  Invoke([&](Http::MessagePtr&, Http::AsyncClient::Callbacks& callbacks,
 					 const Optional<std::chrono::milliseconds>&) -> Http::AsyncClient::Request* {
 			callbacks.onSuccess(Http::MessagePtr {new Http::ResponseMessageImpl(Http::HeaderMapPtr{new Http::TestHeaderMapImpl{{"cache-key", "1234"}, 
-																															   {":status", "200"}}})});
+																															   {":status", "200"},
+																															   {"go-to-origin", "true"}
+																															  }
+																								  }
+																			    )
+		                                         }
+		                       );
 			return nullptr;
 		  }));
 	EXPECT_CALL(requestCallbacks, complete(_))
