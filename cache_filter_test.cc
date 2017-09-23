@@ -63,13 +63,13 @@ TEST_F(UfesOrchFilterTest, UfesOrchBasicFilter) {
 	EXPECT_CALL(filter_callbacks_, encodeHeaders_(_, _))
 		.WillOnce(
 				Invoke([&](HeaderMap& headers, bool)->void {
-					ASSERT_TRUE(headers.get(CacheConstants::get().XCacheKey) != nullptr);
+					ASSERT_TRUE(headers.get(CacheConstants::get().CacheKeyHeader) != nullptr);
 	 })
 	);
 	EXPECT_CALL(*mock_client_, orchestrate(_, _))
 		.WillOnce(
 				Invoke ([&](OrchRequestCallbacks& callbacks, const Http::HeaderMap&)-> void {
-					OrchestratorResponse response("1234", 200);
+					OrchestratorResponse response("1234", 200, "true");
 					callbacks.complete(response);
 		 })
 		);
