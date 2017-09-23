@@ -103,6 +103,7 @@ envoy_cc_test(
 envoy_cc_test(
     name = "cache_impl_test",
     srcs = ["cache_impl_test.cc"],
+    repository = "@envoy",
     deps = [
         "//source/common/http:header_map_lib",
         "//source/common/http:headers_lib",
