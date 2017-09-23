@@ -99,3 +99,17 @@ envoy_cc_test(
         "@envoy//source/common/buffer:buffer_lib",
     ],
 )
+
+envoy_cc_test(
+    name = "cache_impl_test",
+    srcs = ["cache_impl_test.cc"],
+    deps = [
+        "//source/common/http:header_map_lib",
+        "//source/common/http:headers_lib",
+        ":cache_lib",
+        "//source/common/http:message_lib",
+        "//test/mocks/http:http_mocks",
+        "//test/mocks/upstream:upstream_mocks",
+        "//test/test_common:utility_lib",
+    ],
+)
