@@ -105,12 +105,12 @@ envoy_cc_test(
     srcs = ["cache_impl_test.cc"],
     repository = "@envoy",
     deps = [
-        "//source/common/http:header_map_lib",
-        "//source/common/http:headers_lib",
+        "@envoy//source/common/http:header_map_lib",
+        "@envoy//source/common/http:headers_lib",
         ":cache_lib",
-        "//source/common/http:message_lib",
-        "//test/mocks/http:http_mocks",
-        "//test/mocks/upstream:upstream_mocks",
-        "//test/test_common:utility_lib",
+        "@envoy//source/common/http:message_lib",
+        "@envoy//test/mocks/http:http_mocks",
+        "@envoy//test/mocks/upstream:upstream_mocks",
+        "@envoy//test/test_common:utility_lib",
     ],
 )
