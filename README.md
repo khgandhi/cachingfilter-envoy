@@ -38,6 +38,19 @@ To build the envoy proxy with the caching filter:
 root@e2d5d9923b57:/ebay-envoy# bazel build -c dbg //:envoy
 ```
 
+To run all the test cases under the caching filter:
+
+```shell
+bazel test //...
+```
+
+To run test cases under envoy submodule:
+
+```shell
+bazel test @envoy//test/...
+```
+
+
 # Config
 To enable the caching filter, we add it the envoy config file as follows:
 
