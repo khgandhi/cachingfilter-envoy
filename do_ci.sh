@@ -2,9 +2,9 @@
 
 # Run a CI build/test target, e.g. docs, asan.
 
-set -e
+set -ex
 
-. "$(dirname "$0")"envoy/build_setup.sh
+. "$(dirname "$0")"/envoy/ci/build_setup.sh
 echo "building using ${NUM_CPUS} CPUs"
 
 function bazel_release_binary_build() {
@@ -52,7 +52,7 @@ elif [[ "$1" == "bazel.dev" ]]; then
   setup_clang_toolchain
   # This doesn't go into CI but is available for developer convenience.
   echo "bazel fastbuild build with tests..."
-  cd "${ENVOY_CI_DIR}"
+  cd /source
   echo "Building..."
   bazel --batch build ${BAZEL_BUILD_OPTIONS} -c fastbuild //:envoy
   # Copy the envoy-static binary somewhere that we can access outside of the

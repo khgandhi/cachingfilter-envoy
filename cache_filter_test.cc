@@ -44,7 +44,7 @@ public:
 	  void SetUpTest(const std::string json) {
 	    Json::ObjectSharedPtr config = Json::Factory::loadFromString(json);
 	    mock_client_ = new MockOrchClient();
-	    config_.reset(new UfesOrchFilterConfig("local-orch", 5000, cm_));
+	    config_.reset(new UfesOrchFilterConfig("local-orch", 5000));
 	    filter_.reset(new UfesOrchFilter(config_, OrchClientPtr{mock_client_}));
 	    filter_->setDecoderFilterCallbacks(filter_callbacks_);
 	  }
@@ -54,7 +54,6 @@ public:
 	  NiceMock<MockStreamDecoderFilterCallbacks> filter_callbacks_;
 	  TestHeaderMapImpl request_headers_;
 	  MockOrchClient* mock_client_;
-	  NiceMock<Upstream::MockClusterManager> cm_;
 	  Buffer::OwnedImpl data_;
 };
 
