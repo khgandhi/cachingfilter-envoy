@@ -10,6 +10,7 @@ load(
 envoy_cc_binary(
     name = "envoy",
     repository = "@envoy",
+    stamped = True,
     deps = [
         ":cache_filter_config",
         "@envoy//source/exe:envoy_main_entry_lib",
