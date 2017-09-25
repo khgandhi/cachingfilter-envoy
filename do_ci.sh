@@ -58,7 +58,7 @@ elif [[ "$1" == "bazel.dev" ]]; then
   # Copy the envoy-static binary somewhere that we can access outside of the
   # container for developers.
   cp -f \
-    "${ENVOY_CI_DIR}"/bazel-bin/envoy \
+    /source/bazel-bin/envoy \
     "${ENVOY_DELIVERY_DIR}"/envoy-fastbuild
   echo "Building and testing..."
   bazel --batch test ${BAZEL_TEST_OPTIONS} -c fastbuild //... @envoy//test/...
