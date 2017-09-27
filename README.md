@@ -49,7 +49,24 @@ To run test cases under envoy submodule:
 ```shell
 bazel test @envoy//test/...
 ```
+# CI Builds
+To run envoy builds for testing and development purposes, run the following command:
 
+```shell
+./run_envoy_docker.sh './do_ci.sh bazel.dev'
+```
+
+To run tests and build envoy, run the following command:
+
+```shell
+./run_envoy_docker.sh './do_ci.sh bazel.release'
+```
+
+To just build envoy, run the following command:
+
+```shell
+./run_envoy_docker.sh './do_ci.sh bazel.release.server_only'
+```
 
 # Config
 To enable the caching filter, we add it the envoy config file as follows:
