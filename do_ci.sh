@@ -10,23 +10,12 @@ echo "building using ${NUM_CPUS} CPUs"
 function bazel_release_binary_build() {
   echo "Building..."
   cd "${ENVOY_ROOTDIR}"
-  bazel --batch build ${BAZEL_BUILD_OPTIONS} -c opt //:envoy.stamped
+  bazel --batch build ${BAZEL_BUILD_OPTIONS} -c opt //:envoy
   # Copy the envoy-static binary somewhere that we can access outside of the
   # container.
   cp -f \
-    "${ENVOY_ROOTDIR}"/bazel-bin/envoy.stamped \
+    "${ENVOY_ROOTDIR}"/bazel-bin/envoy \
     "${ENVOY_DELIVERY_DIR}"/envoy
-}
-
-function bazel_debug_binary_build() {
-  echo "Building..."
-  cd "${ENVOY_ROOTDIR}"
-  bazel --batch build ${BAZEL_BUILD_OPTIONS} -c dbg //:envoy.stamped
-  # Copy the envoy-static binary somewhere that we can access outside of the
-  # container.
-  cp -f \
-    "${ENVOY_ROOTDIR}"/bazel-bin/envoy.stamped \
-    "${ENVOY_DELIVERY_DIR}"/envoy-debug
 }
 
 if [[ "$1" == "bazel.release" ]]; then
@@ -40,13 +29,6 @@ elif [[ "$1" == "bazel.release.server_only" ]]; then
   setup_gcc_toolchain
   echo "bazel release build..."
   bazel_release_binary_build
-  exit 0
-elif [[ "$1" == "bazel.debug" ]]; then
-  setup_gcc_toolchain
-  echo "bazel debug build with tests..."
-  bazel_debug_binary_build
-  echo "Testing..."
-  bazel --batch test ${BAZEL_TEST_OPTIONS} -c dbg //... @envoy//test/...
   exit 0
 elif [[ "$1" == "bazel.dev" ]]; then
   setup_clang_toolchain
@@ -65,13 +47,13 @@ elif [[ "$1" == "bazel.dev" ]]; then
   exit 0
 elif [[ "$1" == "fix_format" ]]; then
   echo "fix_format..."
-  cd "${ENVOY_SRCDIR}"
-  ./tools/check_format.py fix
+  cd "${ENVOY_ROOTDIR}"
+  ./envoy/tools/check_format.py fix
   exit 0
 elif [[ "$1" == "check_format" ]]; then
   echo "check_format..."
-  cd "${ENVOY_SRCDIR}"
-  ./tools/check_format.py check
+  cd "${ENVOY_ROOTDIR}"
+  ./envoy/tools/check_format.py check
   exit 0
 else
   echo "Invalid do_ci.sh target, see ci/README.md for valid targets."
