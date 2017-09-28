@@ -52,13 +52,13 @@ elif [[ "$1" == "bazel.dev" ]]; then
   setup_clang_toolchain
   # This doesn't go into CI but is available for developer convenience.
   echo "bazel fastbuild build with tests..."
-  cd /source
+  cd "${ENVOY_ROOTDIR}" 
   echo "Building..."
   bazel --batch build ${BAZEL_BUILD_OPTIONS} -c fastbuild //:envoy
   # Copy the envoy-static binary somewhere that we can access outside of the
   # container for developers.
   cp -f \
-    /source/bazel-bin/envoy \
+    "${ENVOY_ROOTDIR}"/bazel-bin/envoy \
     "${ENVOY_DELIVERY_DIR}"/envoy-fastbuild
   echo "Building and testing..."
   bazel --batch test ${BAZEL_TEST_OPTIONS} -c fastbuild //... @envoy//test/...
