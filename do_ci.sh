@@ -16,6 +16,10 @@ function bazel_release_binary_build() {
   cp -f \
     "${ENVOY_ROOTDIR}"/bazel-bin/envoy.stamped \
     "${ENVOY_DELIVERY_DIR}"/envoy
+
+  echo "Copying release binary for image build..."
+  mkdir -p "${ENVOY_ROOTDIR}"/build_release
+  cp -f "${ENVOY_DELIVERY_DIR}"/envoy "${ENVOY_ROOTDIR}"/build_release
 }
 
 function bazel_debug_binary_build() {
